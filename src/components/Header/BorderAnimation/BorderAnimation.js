@@ -10,7 +10,6 @@ export const BorderAnimation = () => {
     const scrollPosition = Math.max(0, Math.min(window.scrollY, scrollHeight));
     const progress = (scrollPosition / scrollHeight) * 100;
     
-    // Direct DOM manipulation for immediate updates
     if (progressBarRef.current) {
       const hue = (progress * 3.6) % 360;
       progressBarRef.current.style.width = `${progress}%`;
@@ -24,7 +23,6 @@ export const BorderAnimation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Cancel any pending updates
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -32,7 +30,6 @@ export const BorderAnimation = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initial update
     updateProgress();
 
     return () => {

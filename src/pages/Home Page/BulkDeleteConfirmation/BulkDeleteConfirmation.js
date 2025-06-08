@@ -1,4 +1,3 @@
-// src/pages/Home Page/BulkDeleteConfirmation/BulkDeleteConfirmation.js
 import React from 'react';
 
 const BulkDeleteConfirmation = ({ count, onClose, onConfirm }) => {

@@ -19,7 +19,7 @@ function HomePage() {
   const [deletingPost, setDeletingPost] = useState(null);
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [totalDataCount, setTotalDataCount] = useState(0);
-  const [pageSize, setPageSize] = useState(10); // Now state variable
+  const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -36,7 +36,7 @@ function HomePage() {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, pageSize]); // ✅ Dependencies that `getPosts` relies on
+  }, [currentPage, pageSize]);
 
   const togglePostSelection = (postId) => {
     setSelectedPosts((prev) =>
@@ -73,7 +73,7 @@ function HomePage() {
     try {
       setLoading(true);
       await fetchAndSavePosts();
-      setCurrentPage(1); // Reset to first page after new fetch
+      setCurrentPage(1);
       await getPosts();
       toast.success("Posts fetched and saved successfully!");
     } catch (error) {
@@ -97,7 +97,7 @@ function HomePage() {
   const handleDelete = async (id) => {
     try {
       await deletePost(id);
-      // If deleting last item on page, go to previous page
+
       if (posts.length === 1 && currentPage > 1) {
         setCurrentPage(currentPage - 1);
       } else {
@@ -117,7 +117,7 @@ function HomePage() {
   const handlePageSizeChange = (e) => {
     const newSize = parseInt(e.target.value);
     setPageSize(newSize);
-    setCurrentPage(1); // Reset to first page when changing page size
+    setCurrentPage(1);
   };
 
   useEffect(() => {

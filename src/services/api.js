@@ -15,11 +15,11 @@ export const fetchPosts = async (page = 1, limit = 10) => {
       posts: response.data.posts || [],
       totalPages:
         response.data.totalPages || Math.ceil(response.data.total / limit),
-      total: response.data.total || 0, // ✅ Add this line
+      total: response.data.total || 0,
     };
   } catch (error) {
     console.error("API Error:", error);
-    return { posts: [], totalPages: 1, total: 0 }; // ✅ Add fallback
+    return { posts: [], totalPages: 1, total: 0 };
   }
 };
 
