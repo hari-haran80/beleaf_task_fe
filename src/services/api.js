@@ -1,10 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const fetchPosts = async (page = 1, limit = 10) => {
-  const response = await axios.get(`${API_BASE_URL}/posts?page=${page}&limit=${limit}`);
-  return response.data;
+  try {
+    const response = await axios.get(`${API_BASE_URL}/posts`, {
+      params: {
+        page,
+        limit,
+      },
+    });
+
+    return {
+      posts: response.data.posts || [],
+      totalPages:
+        response.data.totalPages || Math.ceil(response.data.total / limit),
+      total: response.data.total || 0, // ✅ Add this line
+    };
+  } catch (error) {
+    console.error("API Error:", error);
+    return { posts: [], totalPages: 1, total: 0 }; // ✅ Add fallback
+  }
 };
 
 export const fetchAndSavePosts = async () => {
@@ -17,4 +33,11 @@ export const updatePost = async (id, postData) => {
 
 export const deletePost = async (id) => {
   await axios.delete(`${API_BASE_URL}/posts/${id}`);
+};
+
+export const bulkDeletePosts = async (ids) => {
+  const response = await axios.delete(`${API_BASE_URL}/posts/bulk`, {
+    data: { ids },
+  });
+  return response.data;
 };
