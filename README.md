@@ -1,1 +1,1 @@
-# ETPL Standard React Application
+# my Standard React Application
